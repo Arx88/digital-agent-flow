@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { CodeEditor } from '../CodeEditor';
+import { cn } from '@/lib/utils';
 
 interface AgentPanelProps {
   taskId: string;
