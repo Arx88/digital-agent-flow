@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Share, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ProgressIndicator } from '../ProgressIndicator';
 import { MessageList } from '../MessageList';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 
 interface ConversationAreaProps {
@@ -40,9 +40,9 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
   ];
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-background">
+    <div className="flex-1 flex flex-col h-full bg-background">
       {/* Header */}
-      <div className="border-b border-manus-border p-4">
+      <div className="border-b border-manus-border p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -85,40 +85,39 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
         </div>
       </div>
 
-      {/* Conversation Area */}
-      <div className="flex-1 flex flex-col">
-        <div className="flex-1 overflow-y-auto p-6">
+      {/* Scrollable Conversation Area */}
+      <ScrollArea className="flex-1">
+        <div className="p-6">
           <MessageList taskId={taskId} />
-          <ProgressIndicator />
         </div>
+      </ScrollArea>
 
-        {/* Message Input */}
-        <div className="border-t border-manus-border p-4">
-          <div className="flex gap-3">
-            <Input
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Send message to Manus"
-              className="flex-1 focus-ring"
-            />
-            <Button 
-              onClick={handleSendMessage}
-              disabled={!message.trim()}
-              className="px-6 btn-primary hover-scale"
-            >
-              →
-            </Button>
-          </div>
-          <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
-            <span>Press Enter to send, Shift + Enter for new line</span>
-            <span className={cn(
-              message.length > 1900 ? 'text-manus-red' : 
-              message.length > 1500 ? 'text-manus-yellow' : ''
-            )}>
-              {message.length}/2000
-            </span>
-          </div>
+      {/* Fixed Message Input */}
+      <div className="border-t border-manus-border p-4 flex-shrink-0">
+        <div className="flex gap-3">
+          <Input
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Send message to Manus"
+            className="flex-1 focus-ring"
+          />
+          <Button 
+            onClick={handleSendMessage}
+            disabled={!message.trim()}
+            className="px-6 btn-primary hover-scale"
+          >
+            →
+          </Button>
+        </div>
+        <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
+          <span>Press Enter to send, Shift + Enter for new line</span>
+          <span className={cn(
+            message.length > 1900 ? 'text-manus-red' : 
+            message.length > 1500 ? 'text-manus-yellow' : ''
+          )}>
+            {message.length}/2000
+          </span>
         </div>
       </div>
     </div>
