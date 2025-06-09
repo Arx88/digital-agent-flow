@@ -47,11 +47,11 @@ export const ProgressIndicator: React.FC = () => {
   const getStatusIcon = (status: ProgressStep['status']) => {
     switch (status) {
       case 'completed':
-        return <Check className="h-4 w-4 text-white" />;
+        return <Check className="h-3 w-3 text-white" />;
       case 'in-progress':
-        return <div className="w-2 h-2 bg-white rounded-full animate-pulse-subtle" />;
+        return <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse-subtle" />;
       case 'error':
-        return <AlertCircle className="h-4 w-4 text-white" />;
+        return <AlertCircle className="h-3 w-3 text-white" />;
       default:
         return null;
     }
@@ -71,22 +71,22 @@ export const ProgressIndicator: React.FC = () => {
   };
 
   return (
-    <div className="my-8 animate-fade-in">
-      <h3 className="text-lg font-semibold mb-6 text-foreground">Progreso de la tarea</h3>
-      <div className="space-y-4">
+    <div className="animate-fade-in">
+      <h3 className="text-sm font-semibold mb-3 text-foreground">Progreso de la tarea</h3>
+      <div className="space-y-2">
         {steps.map((step, index) => (
-          <div key={step.id} className="flex items-start gap-4 group">
+          <div key={step.id} className="flex items-start gap-2 group">
             {/* Status Circle */}
             <div className="flex flex-col items-center">
               <div className={cn(
-                "w-8 h-8 rounded-full flex items-center justify-center transition-all-300",
+                "w-5 h-5 rounded-full flex items-center justify-center transition-all-300",
                 getStatusColor(step.status),
                 "group-hover:scale-110"
               )}>
                 {getStatusIcon(step.status)}
               </div>
               {index < steps.length - 1 && (
-                <div className="w-0.5 h-8 bg-manus-border mt-2" />
+                <div className="w-0.5 h-4 bg-manus-border mt-1" />
               )}
             </div>
 
@@ -94,7 +94,7 @@ export const ProgressIndicator: React.FC = () => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
                 <h4 className={cn(
-                  "font-medium transition-colors",
+                  "text-sm font-medium transition-colors",
                   step.status === 'completed' ? 'text-manus-green' :
                   step.status === 'in-progress' ? 'text-manus-blue' :
                   'text-muted-foreground'
@@ -108,7 +108,7 @@ export const ProgressIndicator: React.FC = () => {
                 )}
               </div>
               {step.description && (
-                <p className="text-sm text-muted-foreground mt-1 animate-fade-in">
+                <p className="text-xs text-muted-foreground mt-0.5 animate-fade-in">
                   {step.description}
                 </p>
               )}

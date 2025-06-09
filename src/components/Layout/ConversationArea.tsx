@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
-import { Share, Menu } from 'lucide-react';
+import { Share, Menu, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { MessageList } from '../MessageList';
+import { ProgressIndicator } from '../ProgressIndicator';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
 interface ConversationAreaProps {
@@ -17,6 +19,7 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
   onToggleSidebar
 }) => {
   const [message, setMessage] = useState('');
+  const [showProgress, setShowProgress] = useState(false);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -40,7 +43,7 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
   ];
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-background">
+    <div className="flex-1 flex flex-col h-full bg-background overflow-hidden">
       {/* Header */}
       <div className="border-b border-manus-border p-4 flex-shrink-0">
         <div className="flex items-center justify-between">
@@ -58,6 +61,21 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
             </h1>
           </div>
           <div className="flex items-center gap-3">
+            <Popover open={showProgress} onOpenChange={setShowProgress}>
+              <PopoverTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-2 hover-lift transition-all-300"
+                >
+                  <TrendingUp className="h-4 w-4" />
+                  Progreso
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-96 p-4" align="end">
+                <ProgressIndicator />
+              </PopoverContent>
+            </Popover>
             <Button 
               variant="outline" 
               size="sm" 
@@ -86,7 +104,7 @@ export const ConversationArea: React.FC<ConversationAreaProps> = ({
       </div>
 
       {/* Scrollable Conversation Area */}
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 overflow-hidden">
         <div className="p-6">
           <MessageList taskId={taskId} />
         </div>

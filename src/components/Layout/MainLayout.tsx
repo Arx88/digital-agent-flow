@@ -4,7 +4,6 @@ import { Sidebar } from './Sidebar';
 import { ConversationArea } from './ConversationArea';
 import { AgentPanel } from './AgentPanel';
 import { NewTaskModal } from '../Modals/NewTaskModal';
-import { ProgressIndicator } from '../ProgressIndicator';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 
 export const MainLayout = () => {
@@ -14,7 +13,7 @@ export const MainLayout = () => {
   const [agentPanelCollapsed, setAgentPanelCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background flex w-full">
+    <div className="h-screen bg-background flex w-full overflow-hidden">
       <Sidebar 
         activeTaskId={activeTaskId}
         onTaskSelect={setActiveTaskId}
@@ -23,16 +22,9 @@ export const MainLayout = () => {
         onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
       
-      <div className="flex-1 flex flex-col min-h-screen">
-        {/* Fixed Progress Indicator */}
-        <div className="border-b border-manus-border bg-background z-10">
-          <div className="max-w-4xl mx-auto px-6">
-            <ProgressIndicator />
-          </div>
-        </div>
-
-        {/* Resizable Content Area */}
-        <ResizablePanelGroup direction="horizontal" className="flex-1">
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
+        {/* Resizable Content Area - Full Height */}
+        <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={70} minSize={50}>
             <ConversationArea 
               taskId={activeTaskId}
