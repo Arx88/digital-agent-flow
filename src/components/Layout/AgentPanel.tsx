@@ -27,20 +27,20 @@ export const AgentPanel: React.FC<AgentPanelProps> = ({ taskId }) => {
   }, [timeElapsed]);
 
   return (
-    <div className="w-96 border-l border-border bg-background flex flex-col">
+    <div className="h-full border-l border-manus-border bg-background flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className="p-4 border-b border-manus-border">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold text-foreground">Manus's Computer</h2>
+          <h2 className="font-semibold text-foreground text-base">Manus's Computer</h2>
           {isLive && (
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <span className="text-xs text-blue-600 font-medium">live</span>
+            <div className="live-indicator">
+              <div className="live-dot"></div>
+              <span className="text-xs text-manus-blue font-medium">live</span>
             </div>
           )}
         </div>
         <div className="text-sm text-muted-foreground">
-          <div className="font-medium">Manus is working: {currentStatus}</div>
+          <div className="font-medium">{currentStatus}</div>
           <div className="text-xs mt-1">
             {timeElapsed} Editing file {currentFile}
           </div>
@@ -57,11 +57,17 @@ export const AgentPanel: React.FC<AgentPanelProps> = ({ taskId }) => {
       </div>
 
       {/* Controls */}
-      <div className="p-4 border-t border-border">
+      <div className="p-4 border-t border-manus-border">
         <div className="flex gap-2 mb-3">
-          <Button variant="outline" size="sm">Diff</Button>
-          <Button variant="outline" size="sm">Original</Button>
-          <Button variant="outline" size="sm">Modified</Button>
+          <Button variant="outline" size="sm" className="hover-scale transition-transform">
+            Diff
+          </Button>
+          <Button variant="outline" size="sm" className="hover-scale transition-transform">
+            Original
+          </Button>
+          <Button variant="outline" size="sm" className="hover-scale transition-transform">
+            Modified
+          </Button>
         </div>
         <div className="flex gap-1">
           {[15, 19, 20, 21, 22].map((num) => (
@@ -69,7 +75,10 @@ export const AgentPanel: React.FC<AgentPanelProps> = ({ taskId }) => {
               key={num} 
               variant={num === 20 ? "default" : "ghost"} 
               size="sm" 
-              className="text-xs"
+              className={cn(
+                "text-xs hover-scale transition-transform",
+                num === 20 && "bg-manus-blue text-white"
+              )}
             >
               {num}
             </Button>

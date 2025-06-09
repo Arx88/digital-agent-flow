@@ -21,11 +21,15 @@ export const MainLayout = () => {
       />
       
       <div className="flex-1 flex min-h-screen">
-        <ConversationArea 
-          taskId={activeTaskId}
-          onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
-        <AgentPanel taskId={activeTaskId} />
+        <div className="flex-1 conversation-max-width mx-auto">
+          <ConversationArea 
+            taskId={activeTaskId}
+            onToggleSidebar={() => setSidebarCollapsed(!sidebarCollapsed)}
+          />
+        </div>
+        <div className="agent-panel-width">
+          <AgentPanel taskId={activeTaskId} />
+        </div>
       </div>
 
       {showNewTaskModal && (

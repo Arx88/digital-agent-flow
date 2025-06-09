@@ -53,28 +53,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div className={cn(
-      "bg-muted/30 border-r border-border flex flex-col transition-all duration-300",
-      collapsed ? "w-16" : "w-80"
+      "bg-manus-light border-r border-manus-border flex flex-col transition-width",
+      collapsed ? "sidebar-width-collapsed" : "sidebar-width"
     )}>
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className="p-4 border-b border-manus-border">
         <div className="flex items-center justify-between">
           <Button
             variant="ghost"
             size="sm"
             onClick={onToggleCollapse}
-            className="p-2"
+            className="p-2 hover-scale focus-ring"
           >
             <Menu className="h-4 w-4" />
           </Button>
           {!collapsed && (
             <Button
               onClick={onNewTask}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 font-medium"
+              className="btn-success flex items-center gap-2 text-sm font-medium hover-lift transition-all-300"
             >
               <Plus className="h-4 w-4" />
               New task
-              <span className="text-xs opacity-70 ml-2">⌘K</span>
+              <span className="text-xs opacity-70 ml-1">⌘K</span>
             </Button>
           )}
         </div>
@@ -82,39 +82,54 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Tasks List */}
       <div className="flex-1 overflow-y-auto p-2">
-        {!collapsed && (
+        {!collapsed ? (
           <div className="space-y-2">
             {tasks.map((task) => (
               <div
                 key={task.id}
                 onClick={() => onTaskSelect(task.id)}
                 className={cn(
-                  "p-3 rounded-lg cursor-pointer transition-all duration-200",
-                  "hover:bg-muted/50",
-                  activeTaskId === task.id 
-                    ? "bg-blue-50 border-l-4 border-blue-500 text-blue-900" 
-                    : "text-muted-foreground"
+                  "task-item group",
+                  activeTaskId === task.id && "active"
                 )}
               >
                 <div className="flex items-start gap-3">
                   <span className="text-lg">{task.avatar}</span>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-sm line-clamp-2 text-foreground">
+                    <h4 className="font-medium text-sm line-clamp-2">
                       {task.title}
                     </h4>
-                    <div className="flex items-center justify-between mt-1">
+                    <div className="flex items-center justify-between mt-2">
                       <span className="text-xs text-muted-foreground">
                         {task.timestamp}
                       </span>
                       <div className={cn(
-                        "w-2 h-2 rounded-full",
-                        task.status === 'active' && "bg-blue-500 animate-pulse",
-                        task.status === 'completed' && "bg-green-500",
-                        task.status === 'error' && "bg-red-500"
+                        "status-indicator",
+                        task.status === 'active' && "status-active",
+                        task.status === 'completed' && "status-completed",
+                        task.status === 'error' && "status-error"
                       )} />
                     </div>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {tasks.map((task) => (
+              <div
+                key={task.id}
+                onClick={() => onTaskSelect(task.id)}
+                className={cn(
+                  "p-3 rounded-lg cursor-pointer transition-all-300 hover-scale flex justify-center",
+                  activeTaskId === task.id 
+                    ? "bg-manus-blue/10 text-manus-blue" 
+                    : "hover:bg-muted/50"
+                )}
+                title={task.title}
+              >
+                <span className="text-lg">{task.avatar}</span>
               </div>
             ))}
           </div>
@@ -123,13 +138,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer */}
       {!collapsed && (
-        <div className="p-4 border-t border-border">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-blue-700 text-sm">
+        <div className="p-4 border-t border-manus-border">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 hover-lift transition-all-300">
+            <div className="flex items-center gap-2 text-manus-blue text-sm">
               <Users className="h-4 w-4" />
               <span className="font-medium">Share Manus with a friend</span>
             </div>
-            <p className="text-xs text-blue-600 mt-1">Get 500 credits each</p>
+            <p className="text-xs text-manus-blue/80 mt-1">Get 500 credits each</p>
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,42 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Manus AI specific colors
+				manus: {
+					blue: 'hsl(var(--manus-blue))',
+					green: 'hsl(var(--manus-green))',
+					red: 'hsl(var(--manus-red))',
+					yellow: 'hsl(var(--manus-yellow))',
+					gray: 'hsl(var(--manus-gray))',
+					light: 'hsl(var(--manus-light))',
+					border: 'hsl(var(--manus-border))'
 				}
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				mono: ['Monaco', 'Menlo', 'Ubuntu Mono', 'monospace'],
+			},
+			fontSize: {
+				'xs': '12px',
+				'sm': '14px',
+				'base': '16px',
+				'lg': '18px',
+				'xl': '20px',
+				'2xl': '24px',
+			},
+			spacing: {
+				'sidebar': '300px',
+				'sidebar-collapsed': '64px',
+				'agent-panel': '400px',
+			},
+			width: {
+				'sidebar': '300px',
+				'sidebar-collapsed': '64px',
+				'agent-panel': '400px',
+			},
+			maxWidth: {
+				'conversation': '800px',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +120,40 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'pulse-subtle': {
+					'0%, 100%': {
+						opacity: '1'
+					},
+					'50%': {
+						opacity: '0.6'
+					}
+				},
+				'slide-in': {
+					'0%': {
+						transform: 'translateX(-100%)'
+					},
+					'100%': {
+						transform: 'translateX(0)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'pulse-subtle': 'pulse-subtle 2s ease-in-out infinite',
+				'slide-in': 'slide-in 0.3s ease-out'
 			}
 		}
 	},
